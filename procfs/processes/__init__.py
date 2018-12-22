@@ -189,4 +189,4 @@ class cgroup(ProcessFile):
             for controller in controllers:
                 result[controller] = entry
 
-            return result
+        return result
