@@ -171,10 +171,10 @@ class smaps(ProcessFile):
 class cgroup(ProcessFile):
     """/proc/<pid>/cgroup
     """
-    
-    _re_section = re.compile(r'(?P<hierarchy>\d+):'
-                             r'(?P<controllers>[0-9a-z,]+):'
-                             r'(?P<path>.*)')
+
+    __re_section = re.compile(r'(?P<hierarchy>\d+):'
+                              r'(?P<controllers>[0-9a-z,]+):'
+                              r'(?P<path>.*)')
     def _parse(self, data):
         result = Dict()
         for line in data.splitlines():
