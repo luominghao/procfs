@@ -166,3 +166,27 @@ class smaps(ProcessFile):
                 value = int(value.split(' kB', 1)[0].strip())
                 result[pathname][key] = value
         return result
+
+
+class cgroup(ProcessFile):
+    """/proc/<pid>/cgroup
+    """
+    
+    _re_section = re.compile(r'(?P<hierarchy>\d+):'
+                             r'(?P<controllers>[0-9a-z,]+):'
+                             r'(?P<path>.*)')
+    def _parse(self, data):
+        result = Dict()
+        for line in data.splitlines():
+            match = self.__re_section.match(line)
+            if not match:
+                continue
+
+            data = match.groupdict()
+            entry = dict(hierarchy=data['hierarchy'], path=data['path'])
+
+            controllers = data['controllers'].split(',')
+            for controller in controllers:
+                result[controller] = entry
+
+            return result
