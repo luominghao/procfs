@@ -239,7 +239,7 @@ class Processes(object):
     @property
     def all(self):
         if self.__processes is None:
-            return [Process(pid) for pid self.pids]
+            return [Process(pid) for pid in self.pids]
         else:
             return self.__processes
 
