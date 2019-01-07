@@ -239,10 +239,13 @@ class Processes(object):
     @property
     def all(self):
         if self.__processes is None:
-            return [Process(pid) for pid in os.listdir('/proc')
-                    if DIGIT.match(pid)]
+            return [Process(pid) for pid self.pids]
         else:
             return self.__processes
+
+    @property
+    def pids(self):
+        return [pid for pid in os.listdir('/proc') if DIGIT.match(pid)]
 
     def uid(self, uid=None):
         """Filter processes by uid"""
